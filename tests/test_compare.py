@@ -18,3 +18,8 @@ def sample_data():
 )
 def test_common(lines1, lines2, expected):
     assert find_common_lines(lines1, lines2) == expected
+
+def test_diff(sample_data):
+    l1, l2 = sample_data
+    assert find_diff_lines(l1, l2) == {"a", "d"}
+
