@@ -1,10 +1,9 @@
 import sys
 import os
 import pytest
+from compare import find_common_lines, find_diff_lines
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from compare import find_common_lines, find_diff_lines
 
 
 @pytest.fixture
