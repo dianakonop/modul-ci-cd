@@ -1,28 +1,25 @@
-def read_file_lines(filename):
-    with open(filename, 'r', encoding='utf-8') as f:
-        return set(line.strip() for line in f)
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-def find_common_lines(lines1, lines2):
-    return lines1 & lines2
+import pytest
+from compare import find_common_lines, find_diff_lines
 
-def find_diff_lines(lines1, lines2):
-    return lines1 ^ lines2
+@pytest.fixture
+def sample_data():
+    return {"a", "b", "c"}, {"b", "c", "d"}
 
-def write_lines(filename, lines):
-    with open(filename, 'w', encoding='utf-8') as f:
-        for line in sorted(lines):
-            f.write(line + '\n')
+@pytest.mark.parametrize(
+    "lines1, lines2, expected",
+    [
+        ({"a", "b"}, {"b", "c"}, {"b"}),
+        ({"x"}, {"y"}, set()),
+    ]
+)
+def test_common(lines1, lines2, expected):
+    assert find_common_lines(lines1, lines2) == expected
 
-def compare_files(file1, file2):
-    lines1 = read_file_lines(file1)
-    lines2 = read_file_lines(file2)
-
-    same = find_common_lines(lines1, lines2)
-    diff = find_diff_lines(lines1, lines2)
-
-    write_lines('same.txt', same)
-    write_lines('diff.txt', diff)
-
-if __name__ == "__main__":
-    compare_files("file1.txt", "file2.txt")
+def test_diff(sample_data):
+    l1, l2 = sample_data
+    assert find_diff_lines(l1, l2) == {"a", "d"}
 
