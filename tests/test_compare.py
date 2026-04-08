@@ -9,3 +9,12 @@ from compare import find_common_lines, find_diff_lines
 def sample_data():
     return {"a", "b", "c"}, {"b", "c", "d"}
 
+@pytest.mark.parametrize(
+    "lines1, lines2, expected",
+    [
+        ({"a", "b"}, {"b", "c"}, {"b"}),
+        ({"x"}, {"y"}, set()),
+    ]
+)
+def test_common(lines1, lines2, expected):
+    assert find_common_lines(lines1, lines2) == expected
