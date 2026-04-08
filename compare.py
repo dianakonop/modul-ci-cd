@@ -23,3 +23,6 @@ def compare_files(file1, file2):
     write_lines('same.txt', same)
     write_lines('diff.txt', diff)
 
+if __name__ == "__main__":
+    compare_files("file1.txt", "file2.txt")
+
