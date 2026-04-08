@@ -13,3 +13,13 @@ def write_lines(filename, lines):
         for line in sorted(lines):
             f.write(line + '\n')
 
+def compare_files(file1, file2):
+    lines1 = read_file_lines(file1)
+    lines2 = read_file_lines(file2)
+
+    same = find_common_lines(lines1, lines2)
+    diff = find_diff_lines(lines1, lines2)
+
+    write_lines('same.txt', same)
+    write_lines('diff.txt', diff)
+
