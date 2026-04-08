@@ -5,3 +5,6 @@ def read_file_lines(filename):
 def find_common_lines(lines1, lines2):
     return lines1 & lines2
 
+def find_diff_lines(lines1, lines2):
+    return lines1 ^ lines2
+
